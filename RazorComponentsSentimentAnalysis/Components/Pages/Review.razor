@@ -1,0 +1,19 @@
+﻿@page "/review"
+
+<h1>Review</h1>
+<p>Tell us what you think about stuff in general.</p>
+<p><button class="btn btn-primary">Submit</button></p>
+
+<p><textarea oninput=@UpdateScore cols="80"></textarea></p>
+
+<HappinessScale Value=@happiness />
+
+@functions {
+    float happiness = 50; // 0=worst, 100=best
+
+    void UpdateScore(UIChangeEventArgs evt)
+    {
+        var text = (string)evt.Value;
+        happiness = Sentiment.Predict(text).Percentage;
+    }
+}
